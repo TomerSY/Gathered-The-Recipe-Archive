@@ -3,7 +3,7 @@ export default function Home() {
     <iframe
       className="site-frame"
       src="/recipes.html"
-      title="המתכונים שלנו"
+      title="Gathered — ארכיון המתכונים"
     />
   );
 }

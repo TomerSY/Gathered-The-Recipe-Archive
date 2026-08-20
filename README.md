@@ -1,11 +1,12 @@
-# “Gathered” — The Recipe Archive
+# Gathered — The Recipe Archive
 
 A small, mobile-friendly Hebrew family recipe archive. The public site is
 [hebrew-recipes.tony2timez.chatgpt.site](https://hebrew-recipes.tony2timez.chatgpt.site/).
 
 ## What it does
 
-- Presents the recipe collection in Hebrew with right-to-left layout.
+- Presents a warm, searchable Hebrew recipe archive with right-to-left layout.
+- Generates category filters from the recipe data as the collection grows.
 - Lets visitors copy and share recipes.
 - Accepts recipe submissions through FormSubmit.
 - Allows one optional recipe image per submission, with FormSubmit's 10 MB
@@ -13,8 +14,12 @@ A small, mobile-friendly Hebrew family recipe archive. The public site is
 
 ## Project structure
 
-- `public/recipes.html` contains the recipe content, styling, interactions, and
-  submission form.
+- `public/recipes.html` contains the accessible page structure and submission
+  form.
+- `public/gathered.css` contains the responsive design system and layouts.
+- `public/gathered.js` contains the recipe collection and archive interactions.
+- `public/images/` contains compressed recipe photography.
+- `public/og.png` is the generated social-preview image.
 - `app/page.tsx` displays that document in the site shell.
 - `app/layout.tsx` defines the Hebrew/RTL page metadata.
 - `.openai/hosting.json` connects the project to OpenAI Sites.
@@ -39,6 +44,15 @@ npm test
 The included lifecycle scripts target the Linux-based Sites build environment
 and use GNU `timeout` and `flock`.
 
+## Adding a recipe
+
+Add one object to the `recipes` array at the top of `public/gathered.js`. Give
+it a unique `id` and provide the same fields as the existing recipe. Categories,
+the search index, recipe count, cards, and detail views update automatically.
+
+Put compressed recipe images in `public/images/` and reference them with root
+paths such as `/images/example.webp`.
+
 ## Recipe submissions
 
 The form in `public/recipes.html` posts to FormSubmit using its random-looking
@@ -56,19 +70,32 @@ not retained in FormSubmit's submission archive.
 
 ## Maintenance checklist
 
-1. Edit recipe content or form markup in `public/recipes.html`.
+1. Add or edit recipe data in `public/gathered.js`; change page structure only
+   when needed in `public/recipes.html`.
 2. Preserve `lang="he"`, right-to-left layout, labels, and keyboard-accessible
    controls.
-3. Keep embedded images reasonably compressed so the page remains quick to
+3. Keep images reasonably compressed so the page remains quick to
    load on phones.
-4. Never replace the FormSubmit endpoint with a visible email address or commit
+4. Follow the design tokens in `public/gathered.css` and test at mobile and
+   desktop widths. Preserve visible focus, readable contrast, clear feedback,
+   and large touch targets.
+5. Never replace the FormSubmit endpoint with a visible email address or commit
    passwords, API keys, or other secrets.
-5. Run the build and tests.
-6. Review the changed files, commit only the intended update, and push the same
+6. Run the build and tests.
+7. Review the changed files, commit only the intended update, and push the same
    source revision to GitHub and OpenAI Sites.
-7. After publishing, test browsing, opening and closing the submission modal,
+8. After publishing, test browsing, opening and closing both dialogs, search,
+   filters,
    required-field validation, a text-only submission, and an image submission
    under 10 MB.
+
+## Design notes
+
+The visual system uses warm cream paper tones, terracotta accents, and deep
+forest green. The custom `G`-and-leaf mark is implemented in HTML/CSS so it
+stays sharp at every size. Layouts use responsive grids, semantic headings,
+native dialogs, visible focus states, reduced-motion support, and concise
+feedback for important actions.
 
 ## Deployment
 
