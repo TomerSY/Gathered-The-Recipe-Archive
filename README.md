@@ -19,6 +19,8 @@ A small, mobile-friendly Hebrew family recipe archive. The public site is
 - `public/gathered.css` contains the responsive design system and layouts.
 - `public/gathered.js` contains the recipe collection and archive interactions.
 - `public/images/` contains compressed recipe photography.
+- `public/fonts/Rachel-Regular.ttf` is the family handwriting font used only
+  for recipe footnotes.
 - `public/og.png` is the generated social-preview image.
 - `app/page.tsx` displays that document in the site shell.
 - `app/layout.tsx` defines the Hebrew/RTL page metadata.
@@ -49,6 +51,12 @@ and use GNU `timeout` and `flock`.
 Add one object to the `recipes` array at the top of `public/gathered.js`. Give
 it a unique `id` and provide the same fields as the existing recipe. Categories,
 the search index, recipe count, cards, and detail views update automatically.
+
+Every recipe must include a `footnotes` array. Footnotes are short,
+recipe-specific substitutions, warnings, timing corrections, or family
+observations. They automatically render in Rachel's handwriting. Keep
+ingredients, steps, navigation, buttons, and longer explanatory copy in the
+interface font for readability.
 
 Put compressed recipe images in `public/images/` and reference them with root
 paths such as `/images/example.webp`.
@@ -95,7 +103,9 @@ The visual system uses warm cream paper tones, terracotta accents, and deep
 forest green. The custom `G`-and-leaf mark is implemented in HTML/CSS so it
 stays sharp at every size. Layouts use responsive grids, semantic headings,
 native dialogs, visible focus states, reduced-motion support, and concise
-feedback for important actions.
+feedback for important actions. Rachel's handwriting is reserved for recipe
+footnotes so it retains its personal meaning and never competes with practical
+cooking instructions.
 
 ## Deployment
 

@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("renders the Gathered site metadata", async () => {
@@ -38,9 +38,14 @@ test("keeps recipe submissions private and image-enabled", async () => {
 
 test("uses a scalable, data-driven archive", async () => {
   const script = await readFile(new URL("../public/gathered.js", import.meta.url), "utf8");
+  const styles = await readFile(new URL("../public/gathered.css", import.meta.url), "utf8");
 
   assert.match(script, /const recipes = \[/);
+  assert.match(script, /footnotes: \[/);
+  assert.match(script, /class="recipe-footnotes"/);
   assert.match(script, /renderFilters\(\)/);
   assert.match(script, /renderRecipes\(\)/);
   assert.match(script, /10 \* 1024 \* 1024/);
+  assert.match(styles, /font-family: "Rachel Hand"/);
+  await access(new URL("../public/fonts/Rachel-Regular.ttf", import.meta.url));
 });

@@ -28,7 +28,15 @@ const recipes = [
       "ממלאים את הצנצנת ביחס של חצי חומץ וחצי ממי בישול הסלק, עד לשפת הצנצנת — בערך 3 כוסות מכל נוזל.",
       "סוגרים ומניחים להחמצה. אחרי יום־יומיים הסלק מוכן.",
     ],
-    tip: "אפשר לכתוש מעט את השום והפלפל החריף כדי לזרז את ההחמצה, לפעמים לכיום אחד בלבד. את מי הבישול שנשארו אפשר לשתות.",
+    footnotes: [
+      {
+        marker: "*",
+        text: "אפשר לכתוש מעט את השום והפלפל החריף כדי לזרז את ההחמצה, לפעמים לכיום אחד בלבד.",
+      },
+      {
+        text: "את מי הבישול שנשארו אפשר לשתות.",
+      },
+    ],
   },
 ];
 
@@ -73,6 +81,7 @@ function recipeSearchText(recipe) {
     recipe.story,
     ...recipe.tags,
     ...recipe.ingredients.flat(),
+    ...recipe.footnotes.map((footnote) => footnote.text),
   ].join(" "));
 }
 
@@ -150,6 +159,12 @@ function recipeDetail(recipe) {
   const gallery = recipe.gallery.map((image, index) => `
     <img src="${escapeHtml(image)}" alt="${escapeHtml(recipe.title)} — תמונת הכנה ${index + 1}" loading="lazy" />
   `).join("");
+  const footnotes = recipe.footnotes.map((footnote) => `
+    <p class="recipe-footnote">
+      ${footnote.marker ? `<span class="recipe-footnote-marker" aria-hidden="true">${escapeHtml(footnote.marker)}</span>` : ""}
+      ${escapeHtml(footnote.text)}
+    </p>
+  `).join("");
 
   return `
     <div class="recipe-detail-hero">
@@ -178,7 +193,10 @@ function recipeDetail(recipe) {
       <section aria-labelledby="stepsTitle">
         <h3 id="stepsTitle">אופן ההכנה</h3>
         <ol class="steps-list">${steps}</ol>
-        <div class="tip-box"><strong>הטיפ של אמא:</strong> ${escapeHtml(recipe.tip)}</div>
+        <aside class="recipe-footnotes" aria-labelledby="footnotesTitle">
+          <h4 id="footnotesTitle">הערות מהמטבח</h4>
+          ${footnotes}
+        </aside>
       </section>
     </div>
   `;
@@ -195,7 +213,8 @@ function openRecipe(recipeId) {
 function recipeAsText(recipe) {
   const ingredients = recipe.ingredients.map(([name, amount]) => `• ${name}: ${amount}`).join("\n");
   const steps = recipe.steps.map((step, index) => `${index + 1}. ${step}`).join("\n");
-  return `${recipe.title}\n\nמצרכים\n${ingredients}\n\nאופן ההכנה\n${steps}\n\nטיפ: ${recipe.tip}\n\nGathered — The Recipe Archive`;
+  const footnotes = recipe.footnotes.map((footnote) => `• ${footnote.text}`).join("\n");
+  return `${recipe.title}\n\nמצרכים\n${ingredients}\n\nאופן ההכנה\n${steps}\n\nהערות מהמטבח\n${footnotes}\n\nGathered — The Recipe Archive`;
 }
 
 async function copyRecipe(recipeId) {
