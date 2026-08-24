@@ -31,6 +31,11 @@ A small, mobile-friendly Hebrew family recipe archive. The public site is
 
 Requirements: Node.js 22.13 or newer and npm.
 
+GitHub is the source of truth for this project. The primary working copy is
+kept in `~/Desktop/Tomer/Gathered-The-Recipe-Archive`; OpenAI Sites remains the
+production host. See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch, review,
+testing, and publishing workflow.
+
 ```bash
 npm ci
 npm run dev
@@ -90,9 +95,10 @@ not retained in FormSubmit's submission archive.
 5. Never replace the FormSubmit endpoint with a visible email address or commit
    passwords, API keys, or other secrets.
 6. Run the build and tests.
-7. Review the changed files, commit only the intended update, and push the same
-   source revision to GitHub and OpenAI Sites.
-8. After publishing, test browsing, opening and closing both dialogs, search,
+7. Review the changed files, commit only the intended update, and merge it into
+   GitHub `main` after the automated check passes.
+8. Publish that tested GitHub commit to the existing OpenAI Sites project.
+9. After publishing, test browsing, opening and closing both dialogs, search,
    filters,
    required-field validation, a text-only submission, and an image submission
    under 10 MB.
@@ -111,4 +117,6 @@ cooking instructions.
 
 Production is hosted by OpenAI Sites. `.openai/hosting.json` identifies the
 existing Sites project; do not replace its project ID or create a second site.
-Public deployment should happen only after the build and tests pass.
+GitHub `main` is the canonical source, and the Sites repository is only a
+deployment destination. Public deployment should happen only from a tested,
+committed GitHub revision after the build and tests pass.
