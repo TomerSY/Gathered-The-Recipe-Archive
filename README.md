@@ -19,8 +19,11 @@ A small, mobile-friendly Hebrew family recipe archive. The public site is
 - `public/gathered.css` contains the responsive design system and layouts.
 - `public/gathered.js` contains the recipe collection and archive interactions.
 - `public/images/` contains compressed recipe photography.
+- `public/fonts/NotoSansHebrew-Variable.ttf` is the self-hosted interface font
+  used for all Hebrew text.
 - `public/fonts/Rachel-Regular.ttf` is the family handwriting font used only
   for recipe footnotes.
+- `public/fonts/OFL-NotoSansHebrew.txt` contains the Noto Sans Hebrew license.
 - `public/og.png` is the generated social-preview image.
 - `app/page.tsx` displays that document in the site shell.
 - `app/layout.tsx` defines the Hebrew/RTL page metadata.
@@ -106,12 +109,13 @@ not retained in FormSubmit's submission archive.
 ## Design notes
 
 The visual system uses warm cream paper tones, terracotta accents, and deep
-forest green. The custom `G`-and-leaf mark is implemented in HTML/CSS so it
-stays sharp at every size. Layouts use responsive grids, semantic headings,
-native dialogs, visible focus states, reduced-motion support, and concise
-feedback for important actions. Rachel's handwriting is reserved for recipe
-footnotes so it retains its personal meaning and never competes with practical
-cooking instructions.
+forest green. Noto Sans Hebrew is the single Hebrew interface typeface across
+headings, navigation, recipes, forms, and supporting text. The custom
+`G`-and-leaf mark is implemented in HTML/CSS so it stays sharp at every size.
+Layouts use responsive grids, semantic headings, native dialogs, visible focus
+states, reduced-motion support, and concise feedback for important actions.
+Rachel's handwriting is reserved for recipe footnotes so it retains its
+personal meaning and never competes with practical cooking instructions.
 
 ## Deployment
 

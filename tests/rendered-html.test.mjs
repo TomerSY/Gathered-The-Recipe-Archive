@@ -37,6 +37,7 @@ test("keeps recipe submissions private and image-enabled", async () => {
 });
 
 test("uses a scalable, data-driven archive", async () => {
+  const html = await readFile(new URL("../public/recipes.html", import.meta.url), "utf8");
   const script = await readFile(new URL("../public/gathered.js", import.meta.url), "utf8");
   const styles = await readFile(new URL("../public/gathered.css", import.meta.url), "utf8");
 
@@ -47,5 +48,12 @@ test("uses a scalable, data-driven archive", async () => {
   assert.match(script, /renderRecipes\(\)/);
   assert.match(script, /10 \* 1024 \* 1024/);
   assert.match(styles, /font-family: "Rachel Hand"/);
+  assert.match(styles, /font-family: "Noto Sans Hebrew"/);
+  assert.match(styles, /--font-hebrew: "Noto Sans Hebrew", Arial, sans-serif/);
+  assert.match(styles, /font-family: var\(--font-hebrew\)/);
+  assert.doesNotMatch(styles, /Noto Serif Hebrew/);
+  assert.match(html, /NotoSansHebrew-Variable\.ttf/);
+  await access(new URL("../public/fonts/NotoSansHebrew-Variable.ttf", import.meta.url));
+  await access(new URL("../public/fonts/OFL-NotoSansHebrew.txt", import.meta.url));
   await access(new URL("../public/fonts/Rachel-Regular.ttf", import.meta.url));
 });
