@@ -49,11 +49,17 @@ test("uses a scalable, data-driven archive", async () => {
   assert.match(script, /10 \* 1024 \* 1024/);
   assert.match(styles, /font-family: "Rachel Hand"/);
   assert.match(styles, /font-family: "Noto Sans Hebrew"/);
+  assert.match(styles, /font-family: "Noto Serif Hebrew"/);
   assert.match(styles, /--font-hebrew: "Noto Sans Hebrew", Arial, sans-serif/);
+  assert.match(styles, /--font-hebrew-display: "Noto Serif Hebrew", Georgia, serif/);
   assert.match(styles, /font-family: var\(--font-hebrew\)/);
-  assert.doesNotMatch(styles, /Noto Serif Hebrew/);
+  assert.match(styles, /font-family: var\(--font-hebrew-display\)/);
+  assert.match(styles, /\.memory-note[\s\S]*font-family: "Rachel Hand", cursive/);
   assert.match(html, /NotoSansHebrew-Variable\.ttf/);
+  assert.match(html, /NotoSerifHebrew-Variable\.ttf/);
   await access(new URL("../public/fonts/NotoSansHebrew-Variable.ttf", import.meta.url));
+  await access(new URL("../public/fonts/NotoSerifHebrew-Variable.ttf", import.meta.url));
   await access(new URL("../public/fonts/OFL-NotoSansHebrew.txt", import.meta.url));
+  await access(new URL("../public/fonts/OFL-NotoSerifHebrew.txt", import.meta.url));
   await access(new URL("../public/fonts/Rachel-Regular.ttf", import.meta.url));
 });
