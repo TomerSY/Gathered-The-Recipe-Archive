@@ -1,7 +1,7 @@
 # Gathered — The Recipe Archive
 
-A small, mobile-friendly Hebrew family recipe archive. The public site is
-[hebrew-recipes.tony2timez.chatgpt.site](https://hebrew-recipes.tony2timez.chatgpt.site/).
+A small, mobile-friendly Hebrew family recipe archive. GitHub `main` is the
+source of truth, and the site is published through GitHub Pages.
 
 ## What it does
 
@@ -37,9 +37,8 @@ A small, mobile-friendly Hebrew family recipe archive. The public site is
 
 Requirements: Node.js 22.13 or newer and npm.
 
-GitHub is the source of truth for this project. The primary working copy is
-kept in `~/Desktop/Tomer/Gathered-The-Recipe-Archive`; OpenAI Sites remains the
-production host. See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch, review,
+GitHub is the source of truth for this project. The primary working copy is kept in
+`~/Downloads/codex/simple sites/Gathered-The-Recipe-Archive`. See [CONTRIBUTING.md](CONTRIBUTING.md) for the branch, review,
 testing, and publishing workflow.
 
 ```bash
@@ -123,8 +122,10 @@ with practical cooking instructions.
 
 ## Deployment
 
-Production is hosted by OpenAI Sites. `.openai/hosting.json` identifies the
-existing Sites project; do not replace its project ID or create a second site.
-GitHub `main` is the canonical source, and the Sites repository is only a
-deployment destination. Public deployment should happen only from a tested,
-committed GitHub revision after the build and tests pass.
+GitHub Pages is built by `.github/workflows/pages.yml` and published automatically
+after changes reach `main`. The Pages build creates portable static files and
+updates FormSubmit's success redirect for the Pages URL.
+
+The existing OpenAI Sites project remains available as a fallback.
+`.openai/hosting.json` identifies that project; do not replace its project ID or
+create a second site.
